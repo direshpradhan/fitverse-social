@@ -19,7 +19,14 @@ const postsSlice = createSlice({
       },
     ],
   },
-  reducers: {},
+  reducers: {
+    postButtonClicked: (state, action) => {
+      console.log(action);
+      state.posts.push(action.payload);
+    },
+  },
 });
+
+export const { postButtonClicked } = postsSlice.actions;
 
 export default postsSlice.reducer;
