@@ -7,14 +7,16 @@ const postsSlice = createSlice({
     posts: [
       {
         id: "1",
-        title: "First Post!",
         content: "Hello! This is my first post",
+        liked: false,
+        comments: [],
         date: sub(new Date(), { minutes: 10 }).toISOString(),
       },
       {
         id: "2",
-        title: "Second Post",
         content: "This is my second post!!",
+        liked: false,
+        comments: [],
         date: sub(new Date(), { minutes: 10 }).toISOString(),
       },
     ],
@@ -24,9 +26,24 @@ const postsSlice = createSlice({
       console.log(action);
       state.posts.push(action.payload);
     },
+    likeButtonClicked: (state, action) => {
+      const post = state.posts.find((post) => post.id === action.payload);
+      if (post) {
+        post.liked = !post.liked;
+      }
+    },
+    commentButtonClicked: (state, action) => {
+      const post = state.posts.find(
+        (post) => post.id === action.payload.postId
+      );
+      if (post) {
+        post.comments.push(action.payload.comment);
+      }
+    },
   },
 });
 
-export const { postButtonClicked } = postsSlice.actions;
+export const { postButtonClicked, likeButtonClicked, commentButtonClicked } =
+  postsSlice.actions;
 
 export default postsSlice.reducer;

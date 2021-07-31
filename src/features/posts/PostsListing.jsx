@@ -1,8 +1,12 @@
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { LikeComponent } from "./Components/LikeComponent";
+// import { Link } from "react-router-dom";
 
 export const PostsListing = () => {
   const posts = useSelector((state) => state.posts);
-  // console.log(posts);
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -12,10 +16,29 @@ export const PostsListing = () => {
           return (
             <article
               key={post.id}
-              className="border border-gray-500 my-4 rounded-md"
+              className="border border-gray-500 my-4 rounded-md px-4"
             >
-              <h3 className="font-semibold text-2xl px-4">{post.title}</h3>
-              <p className="px-4 mb-6">{post.content}</p>
+              <h3 className="font-semibold text-xl ">
+                Test User{" "}
+                <span className="text-gray-500 text-base font-medium">
+                  @testuser
+                </span>
+              </h3>
+              <p
+                onClick={() => navigate(`/posts/${post.id}`)}
+                className=" mb-6 cursor-pointer"
+              >
+                {post.content}
+              </p>
+              <div className="flex items-center gap-2">
+                <LikeComponent post={post} />
+                <button
+                  onClick={() => navigate(`/posts/${post.id}`)}
+                  className="flex items-center gap-1"
+                >
+                  <span class="material-icons-outlined">comment</span> Comment
+                </button>
+              </div>
             </article>
           );
         })}
