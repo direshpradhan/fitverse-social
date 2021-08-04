@@ -1,10 +1,9 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { logoutUser } from "../../features/authentication/authSlice";
 
 export const Navbar = () => {
-  const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   return (
@@ -18,21 +17,13 @@ export const Navbar = () => {
       >
         {token ? "Logout" : "Login"}
       </button> */}
-      {!token ? (
-        <button
-          className="mr-8 py-1 px-4 text-white bg-gray-700 rounded"
-          onClick={() => navigate("/login")}
-        >
-          Login
-        </button>
-      ) : (
-        <button
-          className="mr-8 py-1 px-4 text-white bg-gray-700 rounded"
-          onClick={() => dispatch(logoutUser())}
-        >
-          Logout
-        </button>
-      )}
+
+      <button
+        className="mr-8 py-1 px-4 text-white bg-gray-700 rounded"
+        onClick={() => dispatch(logoutUser())}
+      >
+        Logout
+      </button>
     </div>
   );
 };

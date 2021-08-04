@@ -23,7 +23,7 @@ export const Login = () => {
   }, [token, navigate]);
 
   return (
-    <div className="flex flex-col w-1/3 mt-40 mx-auto">
+    <div className="flex flex-col w-1/3 mt-52 mx-auto">
       <h2 className="font-bold text-2xl">Login</h2>
       <form className="flex flex-col" onSubmit={(event) => loginHandler(event)}>
         <input
@@ -45,13 +45,16 @@ export const Login = () => {
           onChange={(event) => setPassword(event.target.value)}
           className="mt-4 py-2 px-4 border rounded "
         />
-        <button
-          type="submit"
-          className="mt-6 bg-blue-700 text-white py-2 rounded"
-        >
+        <button type="submit" className="mt-6 bg-black text-white py-2 rounded">
           Login
         </button>
       </form>
+      <p className="text-center mt-4">
+        Don't have an account?{" "}
+        <a href="/signup" className="text-blue-600">
+          Signup
+        </a>
+      </p>
     </div>
   );
 };

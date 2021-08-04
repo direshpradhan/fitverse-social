@@ -1,11 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loginService } from "../../services";
+import { signupService } from "../../services/signupService/SignupService";
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async ({ email, username, password }) => {
-    const response = await loginService(email, username, password);
-    return response.data;
+    const loginResponse = await loginService(email, username, password);
+    return loginResponse.data;
+  }
+);
+
+export const signupUser = createAsyncThunk(
+  "auth/signupUser",
+  async (userDetails) => {
+    const signupResponse = await signupService(userDetails);
+    return signupResponse.data;
   }
 );
 
@@ -36,6 +45,18 @@ export const authSlice = createSlice({
       localStorage?.setItem("login", JSON.stringify({ token: state.token }));
     },
     [loginUser.rejected]: (state, action) => {
+      state.error = action.error.message;
+      state.status = "error";
+    },
+    [signupUser.pending]: (state) => {
+      state.status = "pending";
+    },
+    [signupUser.fulfilled]: (state, action) => {
+      state.status = "fulfilled";
+      state.token = action.payload.token;
+      localStorage?.setItem("login", JSON.stringify({ token: state.token }));
+    },
+    [signupUser.rejected]: (state, action) => {
       state.error = action.error.message;
       state.status = "error";
     },
