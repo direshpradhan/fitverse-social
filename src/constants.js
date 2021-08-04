@@ -1,0 +1,1 @@
+export const API_URL = "https://Fitverse-social-backend.pdiresh.repl.co";
