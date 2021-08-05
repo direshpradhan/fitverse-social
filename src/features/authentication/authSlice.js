@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loginService } from "../../services";
-import { signupService } from "../../services/signupService/SignupService";
+import { signupService } from "../../services/signupService/Signup.services";
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
@@ -20,6 +20,7 @@ export const signupUser = createAsyncThunk(
 
 const initialState = {
   token: JSON.parse(localStorage?.getItem("login"))?.token || null,
+  user: JSON.parse(localStorage?.getItem("login"))?.user || null,
   status: "idle",
   error: null,
 };
@@ -32,6 +33,7 @@ export const authSlice = createSlice({
       localStorage?.removeItem("login");
       state.token = null;
       state.status = "idle";
+      state.user = null;
       // return initialState;
     },
   },
@@ -42,7 +44,11 @@ export const authSlice = createSlice({
     [loginUser.fulfilled]: (state, action) => {
       state.status = "fulfilled";
       state.token = action.payload.token;
-      localStorage?.setItem("login", JSON.stringify({ token: state.token }));
+      state.user = action.payload.user;
+      localStorage?.setItem(
+        "login",
+        JSON.stringify({ token: state.token, user: state.user })
+      );
     },
     [loginUser.rejected]: (state, action) => {
       state.error = action.error.message;
@@ -54,7 +60,11 @@ export const authSlice = createSlice({
     [signupUser.fulfilled]: (state, action) => {
       state.status = "fulfilled";
       state.token = action.payload.token;
-      localStorage?.setItem("login", JSON.stringify({ token: state.token }));
+      state.user = action.payload.user;
+      localStorage?.setItem(
+        "login",
+        JSON.stringify({ token: state.token, user: state.user })
+      );
     },
     [signupUser.rejected]: (state, action) => {
       state.error = action.error.message;
