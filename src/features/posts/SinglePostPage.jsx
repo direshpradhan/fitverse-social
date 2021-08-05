@@ -21,9 +21,9 @@ export const SinglePostPage = () => {
           <span className="text-gray-500 text-base font-medium">@testuser</span>
         </h3>
         <p className="mb-6">{post?.content}</p>
-        <LikeComponent post={post} />
+        <LikeComponent postId={post?._id} />
 
-        <div className="mt-2 border-t border-gray-300 h-80 overflow-y-auto">
+        <div className="mt-2 border-t border-gray-300 max-h-80 overflow-y-auto">
           {post?.comments?.map((comment) => {
             return (
               <div className="my-2 relative">
@@ -36,7 +36,7 @@ export const SinglePostPage = () => {
                 <p>{comment?.comment}</p>
                 {comment?.user === user._id && (
                   <span
-                    class="material-icons-outlined absolute right-2 top-1"
+                    class="material-icons-outlined absolute right-2 top-1 cursor-pointer"
                     onClick={() =>
                       dispatch(
                         deleteCommentFromPost({
