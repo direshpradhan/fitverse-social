@@ -9,6 +9,7 @@ import { Signup } from "./features/authentication/Signup";
 import { PostsListing } from "./features/posts/PostsListing";
 import { getAllPosts } from "./features/posts/postsSlice";
 import { SinglePostPage } from "./features/posts/SinglePostPage";
+import { UserProfilePage } from "./features/users/UserProfilePage";
 import { setAxiosHeadersForServiceCalls } from "./utils/setAxiosHeadersForServiceCalls";
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       <Routes>
         <PrivateRoute path="/" element={<PostsListing />} />
         <PrivateRoute path="/posts/:postId" element={<SinglePostPage />} />
+        <PrivateRoute path="user/:username" element={<UserProfilePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>

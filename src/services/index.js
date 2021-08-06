@@ -8,4 +8,4 @@ export {
   addCommentToPostService,
   deleteCommentFromPostService,
 } from "./postsService/Posts.services";
-export { getUserByUsernameService } from "./usersService";
+export { getUserByUsernameService } from "./usersService/Users.services";
