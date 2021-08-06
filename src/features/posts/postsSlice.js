@@ -172,7 +172,4 @@ const postsSlice = createSlice({
   },
 });
 
-export const { postButtonClicked, likeButtonClicked, commentButtonClicked } =
-  postsSlice.actions;
-
 export default postsSlice.reducer;
