@@ -8,6 +8,7 @@ import {
   followButtonClicked,
   getPostsByUsername,
   getUserByUsername,
+  resetUser,
   unfollowButtonClicked,
 } from "./usersSlice";
 
@@ -34,6 +35,10 @@ export const UserProfilePage = () => {
       dispatch(getUserByUsername(username));
       dispatch(getPostsByUsername(username));
     }
+
+    return () => {
+      userStatus === "fulfilled" && dispatch(resetUser());
+    };
   }, [userStatus, dispatch, username]);
 
   return (

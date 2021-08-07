@@ -52,7 +52,13 @@ export const unfollowButtonClicked = createAsyncThunk(
 const usersSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    resetUser: (state) => {
+      state.userStatus = "idle";
+      state.user = null;
+      state.posts = [];
+    },
+  },
   extraReducers: {
     //****************getPostsByUsername ******************
     [getPostsByUsername.pending]: (state) => {
@@ -105,5 +111,7 @@ const usersSlice = createSlice({
     },
   },
 });
+
+export const { resetUser } = usersSlice.actions;
 
 export default usersSlice.reducer;
