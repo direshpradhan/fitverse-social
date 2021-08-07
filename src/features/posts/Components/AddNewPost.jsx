@@ -21,7 +21,7 @@ export const AddNewPost = () => {
   }, [content]);
 
   return (
-    <div className="w-2/3 my-0 mx-auto">
+    <div className="w-2/5 my-0 mx-auto">
       <form onSubmit={() => {}} className="flex flex-col">
         <textarea
           name="postContent"

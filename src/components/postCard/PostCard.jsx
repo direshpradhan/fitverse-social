@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router";
+import Avatar from "react-avatar";
 import { LikeComponent } from "../../features/posts/Components/LikeComponent";
 
 export const PostCard = ({ post }) => {
@@ -9,28 +10,41 @@ export const PostCard = ({ post }) => {
     <>
       <article
         key={post._id}
-        className="border border-gray-500 my-4 rounded-md px-4"
+        className=" flex gap-2 border border-gray-500 my-4 rounded-md px-6 pt-4 pb-2"
       >
-        <h3 className="font-semibold text-xl ">
-          {post.user.firstName} {post.user.lastName}
-          <span className="text-gray-500 text-base font-medium ml-1">
-            @{post.user.username}
-          </span>
-        </h3>
-        <p
-          onClick={() => navigate(`/posts/${post._id}`)}
-          className=" mb-6 cursor-pointer"
-        >
-          {post.content}
-        </p>
-        <div className="flex items-center gap-2">
-          <LikeComponent postId={post._id} />
-          <button
+        <Avatar
+          name={`${post.user.firstName} ${post.user.lastName}`}
+          size="50"
+          className="rounded-full"
+        />
+
+        <div>
+          <div className="flex">
+            <h3 className="font-semibold text-lg">
+              {post.user.firstName} {post.user.lastName}
+            </h3>
+            <span className="text-gray-500 text-base ml-1 mt-0.5">
+              @{post.user.username}
+            </span>
+            <span className="text-gray-500 mx-1 mt-0.5">•</span>
+            <span className="text-base text-gray-500 mt-0.5">1h</span>
+          </div>
+          <p
             onClick={() => navigate(`/posts/${post._id}`)}
-            className="flex items-center gap-1"
+            className="mb-4 mt-1 cursor-pointer"
           >
-            <span class="material-icons-outlined">comment</span> Comment
-          </button>
+            {post.content}
+          </p>
+          <div className="flex items-center gap-x-4">
+            <LikeComponent postId={post._id} />
+            <button
+              onClick={() => navigate(`/posts/${post._id}`)}
+              className="flex items-center gap-1"
+            >
+              <span class="material-icons-outlined">comment</span>{" "}
+              {post.comments.length} Comments
+            </button>
+          </div>
         </div>
       </article>
     </>

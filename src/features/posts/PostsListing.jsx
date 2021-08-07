@@ -22,14 +22,14 @@ export const PostsListing = () => {
   return (
     <>
       <AddNewPost />
-      {postStatus === "loading" && (
+      {postStatus === "loading" && posts.length === 0 && (
         <h2 className="text-center text-2xl font-semibold mt-20">
-          Loading.....
+          Loading Posts.....
         </h2>
       )}
-      {postStatus === "fulfilled" && (
-        <section className="w-2/3 my-0 mx-auto">
-          <h2 className="font-bold text-3xl my-4 mb-6">Posts</h2>
+      {(postStatus === "fulfilled" || postStatus === "loading") && (
+        <section className="w-2/5 mt-12 mx-auto">
+          {/* <h2 className="font-bold text-3xl my-4 mb-6">Posts</h2> */}
           {posts?.map((post) => {
             return <PostCard post={post} />;
           })}
