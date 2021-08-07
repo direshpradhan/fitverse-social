@@ -8,7 +8,7 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   return (
-    <div className="flex justify-between w-full h-20 items-center shadow-md">
+    <div className="flex justify-between w-full h-16 items-center shadow-md">
       <h1
         className="text-2xl font-bold pl-6 cursor-pointer"
         onClick={() => navigate("/")}

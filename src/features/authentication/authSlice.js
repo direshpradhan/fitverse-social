@@ -64,7 +64,7 @@ export const authSlice = createSlice({
       state.authStatus = "error";
     },
     [signupUser.pending]: (state) => {
-      state.authStatus = "pending";
+      state.authStatus = "loading";
     },
     [signupUser.fulfilled]: (state, action) => {
       state.authStatus = "fulfilled";

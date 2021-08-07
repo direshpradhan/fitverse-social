@@ -11,7 +11,7 @@ export const PostCard = ({ post }) => {
     <>
       <article
         key={post._id}
-        className=" flex gap-2 border border-gray-500 my-4 rounded-md px-6 pt-4 pb-2"
+        className=" flex gap-2 border border-gray-500 my-4 rounded-md px-2 md:px-6 pt-4 pb-2"
       >
         <Avatar
           name={`${post.user.firstName} ${post?.user.lastName}`}

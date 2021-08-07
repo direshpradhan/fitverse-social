@@ -56,11 +56,11 @@ const usersSlice = createSlice({
   extraReducers: {
     //****************getPostsByUsername ******************
     [getPostsByUsername.pending]: (state) => {
-      state.userStatus = "pending";
+      state.userStatus = "loading";
     },
     [getPostsByUsername.fulfilled]: (state, action) => {
       state.posts = state.posts.concat(action.payload);
-      state.userStatus = "fuldfilled";
+      state.userStatus = "fulfilled";
     },
     [getPostsByUsername.error]: (state, action) => {
       state.userStatus = "error";
@@ -68,11 +68,11 @@ const usersSlice = createSlice({
     },
     //****************getUserByUsername ******************
     [getUserByUsername.pending]: (state) => {
-      state.userStatus = "pending";
+      state.userStatus = "loading";
     },
     [getUserByUsername.fulfilled]: (state, action) => {
       state.user = action.payload;
-      state.userStatus = "fuldfilled";
+      state.userStatus = "fulfilled";
     },
     [getUserByUsername.error]: (state, action) => {
       state.userStatus = "error";
@@ -80,7 +80,7 @@ const usersSlice = createSlice({
     },
     //****************followUser******************
     [followButtonClicked.pending]: (state) => {
-      state.userStatus = "pending";
+      state.userStatus = "loading";
     },
     [followButtonClicked.fulfilled]: (state, action) => {
       const { user } = action.payload;
@@ -92,7 +92,7 @@ const usersSlice = createSlice({
       state.error = action.error.message;
     },
     [unfollowButtonClicked.pending]: (state) => {
-      state.userStatus = "pending";
+      state.userStatus = "loading";
     },
     [unfollowButtonClicked.fulfilled]: (state, action) => {
       const { userToUnfollow } = action.payload;

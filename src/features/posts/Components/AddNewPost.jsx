@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Avatar from "react-avatar";
 import { addNewPost } from "../postsSlice";
 
 export const AddNewPost = () => {
+  const { user } = useSelector((state) => state.auth);
   const [content, setContent] = useState("");
   const [enableButtonClick, setEnableButtonClick] = useState(false);
   const dispatch = useDispatch();
@@ -21,20 +23,36 @@ export const AddNewPost = () => {
   }, [content]);
 
   return (
-    <div className="w-2/5 my-0 mx-auto">
-      <form onSubmit={() => {}} className="flex flex-col">
-        <textarea
-          name="postContent"
-          placeholder="What's happening?"
-          value={content}
-          onChange={(event) => setContent(event.target.value)}
-          className="w-full resize-none mt-4 h-28 mb-2 p-2 border rounded-lg focus:outline-none focus:border-blue-500"
-        ></textarea>
+    <div className="flex gap-x-1 border mt-4 rounded-md pl-2 pr-4 pt-2 pb-4 w-11/12 my-0 mx-auto md:w-2/5 lg:w-2/5">
+      {/* <Avatar
+        name={`${user?.firstName} ${user?.lastName}`}
+        size="50"
+        className="rounded-full mt-2"
+      /> */}
+      <form
+        onSubmit={(event) => addToPostHandler(event)}
+        className="flex flex-col w-full"
+      >
+        <div className="flex gap-x-2 w-full">
+          <Avatar
+            name={`${user?.firstName} ${user?.lastName}`}
+            size="50"
+            className="rounded-full"
+          />
+
+          <textarea
+            name="postContent"
+            placeholder="What's happening?"
+            value={content}
+            onChange={(event) => setContent(event.target.value)}
+            className="w-full resize-none h-28 p-2 focus:outline-none"
+          ></textarea>
+        </div>
+        <div className="bg-gray-200 h-px my-2"></div>
         <button
           disabled={!enableButtonClick}
           type="submit"
           className="bg-blue-700 px-7 py-1 rounded text-white self-end disabled:opacity-70"
-          onClick={(event) => addToPostHandler(event)}
         >
           Post
         </button>

@@ -156,7 +156,7 @@ const postsSlice = createSlice({
     },
     // *************deleteComment***************
     [deleteCommentFromPost.pending]: (state) => {
-      state.postStatus = "pending";
+      state.postStatus = "loading";
     },
     [deleteCommentFromPost.fulfilled]: (state, action) => {
       state.postStatus = "fulfilled";

@@ -28,7 +28,7 @@ export const PostsListing = () => {
         </h2>
       )}
       {(postStatus === "fulfilled" || postStatus === "loading") && (
-        <section className="w-2/5 mt-12 mx-auto">
+        <section className="w-11/12 mt-12 mx-auto md:w-2/5 lg:w-2/5">
           {/* <h2 className="font-bold text-3xl my-4 mb-6">Posts</h2> */}
           {posts?.map((post) => {
             return <PostCard post={post} />;
