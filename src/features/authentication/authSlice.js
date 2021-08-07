@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loginService } from "../../services";
 import { signupService } from "../../services/signupService/Signup.services";
+import { getLoggedInUserService } from "../../services/usersService/Users.services";
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
@@ -18,10 +19,18 @@ export const signupUser = createAsyncThunk(
   }
 );
 
+export const getLoggedInUser = createAsyncThunk(
+  "auth/getLoggedInUser",
+  async () => {
+    const response = await getLoggedInUserService();
+    return response.data.loggedInUser;
+  }
+);
+
 const initialState = {
   token: JSON.parse(localStorage?.getItem("login"))?.token || null,
   user: JSON.parse(localStorage?.getItem("login"))?.user || null,
-  status: "idle",
+  authStatus: "idle",
   error: null,
 };
 
@@ -32,17 +41,17 @@ export const authSlice = createSlice({
     logoutUser: (state) => {
       localStorage?.removeItem("login");
       state.token = null;
-      state.status = "idle";
+      state.authStatus = "idle";
       state.user = null;
       // return initialState;
     },
   },
   extraReducers: {
     [loginUser.pending]: (state) => {
-      state.status = "loading";
+      state.authStatus = "loading";
     },
     [loginUser.fulfilled]: (state, action) => {
-      state.status = "fulfilled";
+      state.authStatus = "fulfilled";
       state.token = action.payload.token;
       state.user = action.payload.user;
       localStorage?.setItem(
@@ -52,13 +61,13 @@ export const authSlice = createSlice({
     },
     [loginUser.rejected]: (state, action) => {
       state.error = action.error.message;
-      state.status = "error";
+      state.authStatus = "error";
     },
     [signupUser.pending]: (state) => {
-      state.status = "pending";
+      state.authStatus = "pending";
     },
     [signupUser.fulfilled]: (state, action) => {
-      state.status = "fulfilled";
+      state.authStatus = "fulfilled";
       state.token = action.payload.token;
       state.user = action.payload.user;
       localStorage?.setItem(
@@ -68,7 +77,18 @@ export const authSlice = createSlice({
     },
     [signupUser.rejected]: (state, action) => {
       state.error = action.error.message;
-      state.status = "error";
+      state.authStatus = "error";
+    },
+    [getLoggedInUser.pending]: (state) => {
+      state.authStatus = "loading";
+    },
+    [getLoggedInUser.fulfilled]: (state, action) => {
+      state.authStatus = "fulfilled";
+      state.user = action.payload;
+    },
+    [getLoggedInUser.rejected]: (state, action) => {
+      state.error = action.error.message;
+      state.authStatus = "error";
     },
   },
 });

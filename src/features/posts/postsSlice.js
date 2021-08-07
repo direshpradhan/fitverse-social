@@ -59,7 +59,7 @@ export const deleteCommentFromPost = createAsyncThunk(
 
 const initialState = {
   posts: [],
-  status: "idle",
+  postStatus: "idle",
   error: null,
 };
 
@@ -70,34 +70,34 @@ const postsSlice = createSlice({
   extraReducers: {
     // *************getAllPosts***************
     [getAllPosts.pending]: (state) => {
-      state.status = "loading";
+      state.postStatus = "loading";
     },
     [getAllPosts.fulfilled]: (state, action) => {
-      state.status = "fulfilled";
+      state.postStatus = "fulfilled";
       state.posts = state.posts.concat(action.payload);
     },
     [getAllPosts.rejected]: (state, action) => {
-      state.status = "error";
+      state.postStatus = "error";
       state.error = action.error.message;
     },
     // *************addNewPost***************
     [addNewPost.pending]: (state) => {
-      state.status = "loading";
+      state.postStatus = "loading";
     },
     [addNewPost.fulfilled]: (state, action) => {
-      state.status = "fulfilled";
+      state.postStatus = "fulfilled";
       state.posts.push(action.payload);
     },
     [addNewPost.rejected]: (state, action) => {
-      state.status = "error";
+      state.postStatus = "error";
       state.error = action.error.message;
     },
     // *************deletePost***************
     [deletePost.pending]: (state) => {
-      state.status = "loading";
+      state.postStatus = "loading";
     },
     [deletePost.fulfilled]: (state, action) => {
-      state.status = "fulfilled";
+      state.postStatus = "fulfilled";
       const postToBeDeletedIndex = state.posts.findIndex(
         (post) => post._id === action.payload._id
       );
@@ -106,15 +106,15 @@ const postsSlice = createSlice({
       }
     },
     [deletePost.rejected]: (state, action) => {
-      state.status = "error";
+      state.postStatus = "error";
       state.error = action.error.message;
     },
     // *************toggleLikeUnlike***************
     [toggleLikeUnlikePost.pending]: (state) => {
-      state.status = "loading";
+      state.postStatus = "loading";
     },
     [toggleLikeUnlikePost.fulfilled]: (state, action) => {
-      state.status = "fulfilled";
+      state.postStatus = "fulfilled";
       const { postId, userId } = action.payload;
       const postToBeLiked = state.posts.find((post) => post._id === postId);
       console.log(postToBeLiked);
@@ -131,15 +131,15 @@ const postsSlice = createSlice({
       }
     },
     [toggleLikeUnlikePost.rejected]: (state, action) => {
-      state.status = "error";
+      state.postStatus = "error";
       state.error = action.error.message;
     },
     // *************addComment***************
     [addCommentToPost.pending]: (state) => {
-      state.status = "loading";
+      state.postStatus = "loading";
     },
     [addCommentToPost.fulfilled]: (state, action) => {
-      state.status = "fulfilled";
+      state.postStatus = "fulfilled";
       const { comment, userId, postId, commentId } = action.payload;
       const postToBeUpdated = state.posts.find((post) => post._id === postId);
       if (postToBeUpdated) {
@@ -151,15 +151,15 @@ const postsSlice = createSlice({
       }
     },
     [addCommentToPost.rejected]: (state, action) => {
-      state.status = "error";
+      state.postStatus = "error";
       state.error = action.error.message;
     },
     // *************deleteComment***************
     [deleteCommentFromPost.pending]: (state) => {
-      state.status = "pending";
+      state.postStatus = "pending";
     },
     [deleteCommentFromPost.fulfilled]: (state, action) => {
-      state.status = "fulfilled";
+      state.postStatus = "fulfilled";
       const { postId, commentId } = action.payload;
       const postToBeUpdated = state.posts.find((post) => post._id === postId);
       const commentToBeDeletedIndex = postToBeUpdated.comments.findIndex(

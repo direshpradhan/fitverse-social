@@ -3,24 +3,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router";
 import "./App.css";
 import { Navbar } from "./components/navbar/Navbar";
+import { getLoggedInUser } from "./features/authentication/authSlice";
 import { Login } from "./features/authentication/Login";
 import { PrivateRoute } from "./features/authentication/PrivateRoute";
 import { Signup } from "./features/authentication/Signup";
 import { PostsListing } from "./features/posts/PostsListing";
-import { getAllPosts } from "./features/posts/postsSlice";
 import { SinglePostPage } from "./features/posts/SinglePostPage";
 import { UserProfilePage } from "./features/users/UserProfilePage";
+// import { getAllUsers } from "./features/users/usersSlice";
 import { setAxiosHeadersForServiceCalls } from "./utils/setAxiosHeadersForServiceCalls";
 
 function App() {
-  const { token } = useSelector((state) => state.auth);
+  const { token, authStatus } = useSelector((state) => state.auth);
   token && setAxiosHeadersForServiceCalls(token);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("useEffect....");
-    token && dispatch(getAllPosts());
-  }, [token, dispatch]);
+    console.log("loggedIn user.....");
+    if (authStatus === "idle" && token) {
+      dispatch(getLoggedInUser());
+    }
+  }, [token, dispatch, authStatus]);
 
   return (
     <div className="">

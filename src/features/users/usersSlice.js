@@ -10,7 +10,7 @@ import {
 
 const initialState = {
   user: null,
-  status: "idle",
+  usertatus: "idle",
   posts: [],
   error: null,
 };
@@ -56,55 +56,51 @@ const usersSlice = createSlice({
   extraReducers: {
     //****************getPostsByUsername ******************
     [getPostsByUsername.pending]: (state) => {
-      state.status = "pending";
+      state.usertatus = "pending";
     },
     [getPostsByUsername.fulfilled]: (state, action) => {
       state.posts = state.posts.concat(action.payload);
-      state.status = "fuldfilled";
+      state.usertatus = "fuldfilled";
     },
     [getPostsByUsername.error]: (state, action) => {
-      state.status = "error";
+      state.usertatus = "error";
       state.error = action.payload.message;
     },
     //****************getUserByUsername ******************
     [getUserByUsername.pending]: (state) => {
-      state.status = "pending";
+      state.usertatus = "pending";
     },
     [getUserByUsername.fulfilled]: (state, action) => {
       state.user = action.payload;
-      state.status = "fuldfilled";
+      state.usertatus = "fuldfilled";
     },
     [getUserByUsername.error]: (state, action) => {
-      state.status = "error";
+      state.usertatus = "error";
       state.error = action.payload.message;
     },
     //****************followUser******************
     [followButtonClicked.pending]: (state) => {
-      state.status = "pending";
+      state.usertatus = "pending";
     },
     [followButtonClicked.fulfilled]: (state, action) => {
       const { user } = action.payload;
       state.user.followers.push(user);
-      state.status = "fulfilled";
+      state.usertatus = "fulfilled";
     },
     [followButtonClicked.error]: (state, action) => {
-      state.status = "error";
+      state.usertatus = "error";
       state.error = action.error.message;
     },
     [unfollowButtonClicked.pending]: (state) => {
-      state.status = "pending";
+      state.usertatus = "pending";
     },
     [unfollowButtonClicked.fulfilled]: (state, action) => {
       const { userToUnfollow } = action.payload;
-      //   console.log(state.user.followers);
-      //   const newFollowersList = state.user.followers.filter(
-      //     (userId) => userId !== user._id
-      //   );
       state.user.followers = userToUnfollow.followers;
-      state.status = "fulfilled";
+      state.usertatus = "fulfilled";
     },
     [unfollowButtonClicked.error]: (state, action) => {
-      state.status = "error";
+      state.usertatus = "error";
       state.error = action.error.message;
     },
   },

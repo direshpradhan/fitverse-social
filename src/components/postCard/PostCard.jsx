@@ -4,6 +4,7 @@ import { LikeComponent } from "../../features/posts/Components/LikeComponent";
 
 export const PostCard = ({ post }) => {
   const navigate = useNavigate();
+  console.log(post);
   return (
     <>
       <article
@@ -11,8 +12,10 @@ export const PostCard = ({ post }) => {
         className="border border-gray-500 my-4 rounded-md px-4"
       >
         <h3 className="font-semibold text-xl ">
-          Test User{" "}
-          <span className="text-gray-500 text-base font-medium">@testuser</span>
+          {post.user.firstName} {post.user.lastName}
+          <span className="text-gray-500 text-base font-medium ml-1">
+            @{post.user.username}
+          </span>
         </h3>
         <p
           onClick={() => navigate(`/posts/${post._id}`)}

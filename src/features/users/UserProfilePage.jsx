@@ -13,7 +13,7 @@ import {
 
 export const UserProfilePage = () => {
   const { username } = useParams();
-  const { user, posts, status } = useSelector((state) => state.users);
+  const { user, posts, userStatus } = useSelector((state) => state.users);
   const loggedInUser = useSelector((state) => state.auth.user);
   const isFollowed = user?.followers.find(
     (user) => user._id === loggedInUser._id
@@ -30,11 +30,11 @@ export const UserProfilePage = () => {
   };
 
   useEffect(() => {
-    if (status === "idle") {
+    if (userStatus === "idle") {
       dispatch(getUserByUsername(username));
       dispatch(getPostsByUsername(username));
     }
-  }, [status, dispatch, username]);
+  }, [userStatus, dispatch, username]);
 
   return (
     <>
