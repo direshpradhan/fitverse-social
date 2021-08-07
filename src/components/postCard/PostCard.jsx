@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router";
 import Avatar from "react-avatar";
 import { LikeComponent } from "../../features/posts/Components/LikeComponent";
+import { CommentIconComponent } from "../../features/posts/Components/CommentIconComponent";
 
 export const PostCard = ({ post }) => {
   const navigate = useNavigate();
@@ -13,14 +14,18 @@ export const PostCard = ({ post }) => {
         className=" flex gap-2 border border-gray-500 my-4 rounded-md px-6 pt-4 pb-2"
       >
         <Avatar
-          name={`${post.user.firstName} ${post.user.lastName}`}
+          name={`${post.user.firstName} ${post?.user.lastName}`}
           size="50"
-          className="rounded-full"
+          className="rounded-full cursor-pointer"
+          onClick={() => navigate(`/user/${post?.user.username}`)}
         />
 
         <div>
           <div className="flex">
-            <h3 className="font-semibold text-lg">
+            <h3
+              className="font-semibold text-lg cursor-pointer"
+              onClick={() => navigate(`/user/${post?.user.username}`)}
+            >
               {post.user.firstName} {post.user.lastName}
             </h3>
             <span className="text-gray-500 text-base ml-1 mt-0.5">
@@ -36,14 +41,8 @@ export const PostCard = ({ post }) => {
             {post.content}
           </p>
           <div className="flex items-center gap-x-4">
-            <LikeComponent postId={post._id} />
-            <button
-              onClick={() => navigate(`/posts/${post._id}`)}
-              className="flex items-center gap-1"
-            >
-              <span class="material-icons-outlined">comment</span>{" "}
-              {post.comments.length} Comments
-            </button>
+            <LikeComponent post={post} />
+            <CommentIconComponent post={post} />
           </div>
         </div>
       </article>

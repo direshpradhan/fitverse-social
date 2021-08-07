@@ -1,11 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { toggleLikeUnlikePost } from "../postsSlice";
 
-export function LikeComponent({ postId }) {
+export function LikeComponent({ post }) {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-  const { posts } = useSelector((state) => state.posts);
-  const post = posts.find((post) => post._id === postId);
   const isLikedByUser = post?.likes?.find((id) => id === user._id);
   return !isLikedByUser ? (
     <button

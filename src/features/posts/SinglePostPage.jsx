@@ -1,17 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
+import { CommentIconComponent } from "./Components/CommentIconComponent";
 import { LikeComponent } from "./Components/LikeComponent";
-import { addCommentToPost, deleteCommentFromPost } from "./postsSlice";
+import {
+  addCommentToPost,
+  deleteCommentFromPost,
+  getAllPosts,
+} from "./postsSlice";
 
 export const SinglePostPage = () => {
   const { postId } = useParams();
-  const { user } = useSelector((state) => state.auth);
+  const { user, token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const posts = useSelector((state) => state.posts.posts);
+  const { posts, postStatus } = useSelector((state) => state.posts);
   const post = posts.find((post) => post._id === postId);
   const [comment, setComment] = useState("");
-  console.log(post);
+  console.log(posts);
+
+  useEffect(() => {
+    console.log("All posts....");
+    if (postStatus === "idle" && token) {
+      dispatch(getAllPosts());
+    }
+  }, [token, dispatch, postStatus]);
 
   return (
     <>
@@ -21,7 +33,10 @@ export const SinglePostPage = () => {
           <span className="text-gray-500 text-base font-medium">@testuser</span>
         </h3>
         <p className="mb-6">{post?.content}</p>
-        <LikeComponent postId={post?._id} />
+        <div className="flex items-center gap-x-4">
+          <LikeComponent post={post} />
+          <CommentIconComponent post={post} />
+        </div>
 
         <div className="mt-2 border-t border-gray-300 max-h-80 overflow-y-auto">
           {post?.comments?.map((comment) => {

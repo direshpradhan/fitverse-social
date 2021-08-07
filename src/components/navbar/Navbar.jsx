@@ -25,7 +25,7 @@ export const Navbar = () => {
       <Avatar
         name={`${user.firstName} ${user.lastName}`}
         size="40"
-        className="rounded-full font-semibold mr-4"
+        className="rounded-full font-semibold mr-4 cursor-pointer"
         onClick={() => navigate(`/user/${user.username}`)}
       />
       {/* <button
