@@ -14,10 +14,11 @@ import {
 export const SinglePostPage = () => {
   const { postId } = useParams();
   const { user, token } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
   const { posts, postStatus } = useSelector((state) => state.posts);
+  const { allUsers } = useSelector((state) => state.users);
   const post = posts.find((post) => post._id === postId);
   const [comment, setComment] = useState("");
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   console.log(posts);
 
@@ -74,13 +75,17 @@ export const SinglePostPage = () => {
 
           <div className="mt-2 border-t border-gray-300 max-h-80 overflow-y-auto">
             {post?.comments?.map((comment) => {
-              //console.log(comment);
+              console.log(comment);
+              console.log(allUsers);
+              const commentUser = allUsers.find(
+                (user) => user._id === comment.user
+              );
               return (
                 <div className="my-2 relative">
                   <h3 className="font-semibold text-lg">
-                    Test
+                    {`${commentUser?.firstName} ${commentUser?.lastName}`}
                     <span className="text-gray-500 text-base font-medium">
-                      @testuser
+                      @{`${commentUser?.username}`}
                     </span>
                   </h3>
                   <p className="break-words w-10/12">{comment?.comment}</p>

@@ -10,20 +10,22 @@ import { Signup } from "./features/authentication/Signup";
 import { PostsListing } from "./features/posts/PostsListing";
 import { SinglePostPage } from "./features/posts/SinglePostPage";
 import { UserProfilePage } from "./features/users/UserProfilePage";
-// import { getAllUsers } from "./features/users/usersSlice";
+import { getAllUsers } from "./features/users/usersSlice";
 import { setAxiosHeadersForServiceCalls } from "./utils/setAxiosHeadersForServiceCalls";
 
 function App() {
   const { token, authStatus } = useSelector((state) => state.auth);
+  const { userStatus } = useSelector((state) => state.users);
   token && setAxiosHeadersForServiceCalls(token);
   const dispatch = useDispatch();
 
   useEffect(() => {
     console.log("loggedIn user.....");
-    if (authStatus === "idle" && token) {
-      dispatch(getLoggedInUser());
+    if (token) {
+      authStatus === "idle" && dispatch(getLoggedInUser());
+      userStatus === "idle" && dispatch(getAllUsers());
     }
-  }, [token, dispatch, authStatus]);
+  }, [token, dispatch, authStatus, userStatus]);
 
   return (
     <div className="">

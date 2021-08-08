@@ -5,15 +5,22 @@ import {
 } from "../../services";
 import {
   followUserService,
+  getAllUsersService,
   unfollowUserService,
 } from "../../services/usersService/Users.services";
 
 const initialState = {
+  allUsers: [],
   user: null,
   userStatus: "idle",
   posts: [],
   error: null,
 };
+
+export const getAllUsers = createAsyncThunk("users/getAllUsers", async () => {
+  const response = await getAllUsersService();
+  return response.data.users;
+});
 
 export const getPostsByUsername = createAsyncThunk(
   "users/getPostsByUsername",
@@ -60,6 +67,18 @@ const usersSlice = createSlice({
     },
   },
   extraReducers: {
+    //****************getAllUsers**************************
+    [getAllUsers.pending]: (state) => {
+      state.userStatus = "loading";
+    },
+    [getAllUsers.fulfilled]: (state, action) => {
+      state.allUsers = action.payload;
+      state.userStatus = "fulfilled";
+    },
+    [getAllUsers.rejected]: (state, action) => {
+      state.error = action.error.message;
+      state.userStatus = "error";
+    },
     //****************getPostsByUsername ******************
     [getPostsByUsername.pending]: (state) => {
       state.userStatus = "loading";
