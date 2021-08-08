@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { PostCard } from "../../components/postCard/PostCard";
 import { logoutUser } from "../authentication/authSlice";
+import { UserSuggestion } from "./UserSuggestion";
 import {
   followButtonClicked,
   getPostsByUsername,
@@ -19,6 +20,7 @@ export const UserProfilePage = () => {
   const isFollowed = user?.followers.find(
     (user) => user._id === loggedInUser._id
   );
+  console.log(userStatus);
   console.log(isFollowed);
   const dispatch = useDispatch();
 
@@ -37,6 +39,7 @@ export const UserProfilePage = () => {
     }
 
     return () => {
+      console.log("reset User");
       userStatus === "fulfilled" && dispatch(resetUser());
     };
   }, [userStatus, dispatch, username]);
@@ -95,8 +98,11 @@ export const UserProfilePage = () => {
             </h2>
             <p className="text-gray-500">@{user?.username}</p>
           </div>
-
-          <div className="bg-gray-200 h-px my-8"></div>
+          <div className="bg-gray-200 h-px my-4"></div>
+          {loggedInUser.username === username && <UserSuggestion />}
+          {loggedInUser.username === username && (
+            <div className="bg-gray-200 h-px my-6"></div>
+          )}
           <div>
             {posts.map((post) => (
               <PostCard post={post} />

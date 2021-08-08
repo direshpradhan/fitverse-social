@@ -8,7 +8,6 @@ export const AddNewPost = () => {
   const [content, setContent] = useState("");
   const [enableButtonClick, setEnableButtonClick] = useState(false);
   const dispatch = useDispatch();
-  console.log(enableButtonClick);
 
   const addToPostHandler = (event) => {
     event.preventDefault();

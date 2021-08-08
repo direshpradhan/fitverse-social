@@ -7,7 +7,6 @@ import { TimeStamp } from "../../features/posts/Components/TimeStamp";
 
 export const PostCard = ({ post }) => {
   const navigate = useNavigate();
-  console.log(post);
   return (
     <>
       <article
@@ -15,17 +14,17 @@ export const PostCard = ({ post }) => {
         className=" flex gap-2 border border-gray-500 my-4 rounded-md px-2 md:px-6 pt-4 pb-2"
       >
         <Avatar
-          name={`${post.user.firstName} ${post?.user.lastName}`}
+          name={`${post.user.firstName} ${post.user.lastName}`}
           size="50"
           className="rounded-full cursor-pointer"
-          onClick={() => navigate(`/user/${post?.user.username}`)}
+          onClick={() => navigate(`/user/${post.user.username}`)}
         />
 
         <div>
           <div className="flex">
             <h3
               className="font-semibold text-lg cursor-pointer"
-              onClick={() => navigate(`/user/${post?.user.username}`)}
+              onClick={() => navigate(`/user/${post.user.username}`)}
             >
               {post.user.firstName} {post.user.lastName}
             </h3>

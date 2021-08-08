@@ -13,6 +13,7 @@ const initialState = {
   allUsers: [],
   user: null,
   userStatus: "idle",
+  allUsersStatus: "idle",
   posts: [],
   error: null,
 };
@@ -69,15 +70,15 @@ const usersSlice = createSlice({
   extraReducers: {
     //****************getAllUsers**************************
     [getAllUsers.pending]: (state) => {
-      state.userStatus = "loading";
+      state.allUsersStatus = "loading";
     },
     [getAllUsers.fulfilled]: (state, action) => {
       state.allUsers = action.payload;
-      state.userStatus = "fulfilled";
+      state.allUsersStatus = "fulfilled";
     },
     [getAllUsers.rejected]: (state, action) => {
       state.error = action.error.message;
-      state.userStatus = "error";
+      state.allUsersStatus = "error";
     },
     //****************getPostsByUsername ******************
     [getPostsByUsername.pending]: (state) => {

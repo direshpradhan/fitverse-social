@@ -15,7 +15,7 @@ import { setAxiosHeadersForServiceCalls } from "./utils/setAxiosHeadersForServic
 
 function App() {
   const { token, authStatus } = useSelector((state) => state.auth);
-  const { userStatus } = useSelector((state) => state.users);
+  const { allUsersStatus } = useSelector((state) => state.users);
   token && setAxiosHeadersForServiceCalls(token);
   const dispatch = useDispatch();
 
@@ -23,9 +23,9 @@ function App() {
     console.log("loggedIn user.....");
     if (token) {
       authStatus === "idle" && dispatch(getLoggedInUser());
-      userStatus === "idle" && dispatch(getAllUsers());
+      allUsersStatus === "idle" && dispatch(getAllUsers());
     }
-  }, [token, dispatch, authStatus, userStatus]);
+  }, [token, dispatch, authStatus, allUsersStatus]);
 
   return (
     <div className="">

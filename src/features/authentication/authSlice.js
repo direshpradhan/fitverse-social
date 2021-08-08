@@ -45,6 +45,10 @@ export const authSlice = createSlice({
       state.user = null;
       // return initialState;
     },
+    resetAuthStatus: (state) => {
+      console.log("resetting......");
+      state.authStatus = "idle";
+    },
   },
   extraReducers: {
     [loginUser.pending]: (state) => {
@@ -83,6 +87,7 @@ export const authSlice = createSlice({
       state.authStatus = "loading";
     },
     [getLoggedInUser.fulfilled]: (state, action) => {
+      console.log("getLoggedInUser..............");
       state.authStatus = "fulfilled";
       state.user = action.payload;
     },
@@ -93,6 +98,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { logoutUser } = authSlice.actions;
+export const { logoutUser, resetAuthStatus } = authSlice.actions;
 
 export default authSlice.reducer;

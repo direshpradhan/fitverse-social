@@ -10,10 +10,8 @@ export const PostsListing = () => {
   const { posts, postStatus } = useSelector((state) => state.posts);
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  console.log(posts);
 
   useEffect(() => {
-    console.log("All posts....");
     if (postStatus === "idle" && token) {
       dispatch(getAllPosts());
     }
