@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import Avatar from "react-avatar";
 import { LikeComponent } from "../../features/posts/Components/LikeComponent";
 import { CommentIconComponent } from "../../features/posts/Components/CommentIconComponent";
+import { TimeStamp } from "../../features/posts/Components/TimeStamp";
 
 export const PostCard = ({ post }) => {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ export const PostCard = ({ post }) => {
               @{post.user.username}
             </span>
             <span className="text-gray-500 mx-1 mt-0.5">•</span>
-            <span className="text-base text-gray-500 mt-0.5">1h</span>
+            <TimeStamp timeData={post?.createdAt} />
           </div>
           <p
             onClick={() => navigate(`/posts/${post._id}`)}
