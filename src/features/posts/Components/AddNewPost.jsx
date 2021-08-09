@@ -22,7 +22,7 @@ export const AddNewPost = () => {
   }, [content]);
 
   return (
-    <div className="flex gap-x-1 border mt-4 rounded-md pl-2 pr-4 pt-2 pb-4 w-11/12 my-0 mx-auto md:w-2/5 lg:w-2/5">
+    <div className="flex gap-x-1 border-2 mt-4 rounded-md pl-2 pr-4 pt-2 pb-4 my-0 mx-auto">
       {/* <Avatar
         name={`${user?.firstName} ${user?.lastName}`}
         size="50"

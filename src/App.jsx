@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router";
 import "./App.css";
-import { Navbar } from "./components/navbar/Navbar";
+// import { Navbar } from "./components/navbar/Navbar";
+import { Sidebar } from "./components/sidebar/Sidebar";
 import { getLoggedInUser } from "./features/authentication/authSlice";
 import { Login } from "./features/authentication/Login";
 import { PrivateRoute } from "./features/authentication/PrivateRoute";
@@ -30,7 +31,7 @@ function App() {
 
   return (
     <div className="">
-      {token && <Navbar />}
+      {token && <Sidebar />}
       <Routes>
         <PrivateRoute path="/" element={<PostsListing />} />
         <PrivateRoute path="/posts/:postId" element={<SinglePostPage />} />

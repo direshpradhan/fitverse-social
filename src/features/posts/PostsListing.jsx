@@ -19,20 +19,22 @@ export const PostsListing = () => {
 
   return (
     <>
-      <AddNewPost />
-      {postStatus === "loading" && posts.length === 0 && (
-        <h2 className="text-center text-2xl font-semibold mt-20">
-          Loading Posts.....
-        </h2>
-      )}
-      {(postStatus === "fulfilled" || postStatus === "loading") && (
-        <section className="w-11/12 mt-12 mx-auto md:w-2/5 lg:w-2/5">
-          {/* <h2 className="font-bold text-3xl my-4 mb-6">Posts</h2> */}
-          {posts?.map((post) => {
-            return <PostCard post={post} />;
-          })}
-        </section>
-      )}
+      <div className="w-11/12 md:w-3/5 lg:w-2/3 mx-auto md:ml-72 lg:ml-80 my-12">
+        <AddNewPost />
+        {postStatus === "loading" && posts.length === 0 && (
+          <h2 className="text-center text-2xl font-semibold mt-20">
+            Loading Posts.....
+          </h2>
+        )}
+        {(postStatus === "fulfilled" || postStatus === "loading") && (
+          <section className=" mt-12 mx-auto">
+            {/* <h2 className="font-bold text-3xl my-4 mb-6">Posts</h2> */}
+            {posts?.map((post) => {
+              return <PostCard post={post} />;
+            })}
+          </section>
+        )}
+      </div>
     </>
   );
 };
