@@ -9,13 +9,14 @@ import { PrivateRoute } from "./features/authentication/PrivateRoute";
 import { Signup } from "./features/authentication/Signup";
 import { PostsListing } from "./features/posts/PostsListing";
 import { SinglePostPage } from "./features/posts/SinglePostPage";
+import { getAllUsers } from "./features/search/searchSlice";
+import { SearchUser } from "./features/search/SearchUser";
 import { UserProfilePage } from "./features/users/UserProfilePage";
-import { getAllUsers } from "./features/users/usersSlice";
 import { setAxiosHeadersForServiceCalls } from "./utils/setAxiosHeadersForServiceCalls";
 
 function App() {
   const { token, authStatus } = useSelector((state) => state.auth);
-  const { allUsersStatus } = useSelector((state) => state.users);
+  const { searchStatus } = useSelector((state) => state.search);
   token && setAxiosHeadersForServiceCalls(token);
   const dispatch = useDispatch();
 
@@ -23,9 +24,9 @@ function App() {
     console.log("loggedIn user.....");
     if (token) {
       authStatus === "idle" && dispatch(getLoggedInUser());
-      allUsersStatus === "idle" && dispatch(getAllUsers());
+      searchStatus === "idle" && dispatch(getAllUsers());
     }
-  }, [token, dispatch, authStatus, allUsersStatus]);
+  }, [token, dispatch, authStatus, searchStatus]);
 
   return (
     <div className="">
@@ -34,6 +35,7 @@ function App() {
         <PrivateRoute path="/" element={<PostsListing />} />
         <PrivateRoute path="/posts/:postId" element={<SinglePostPage />} />
         <PrivateRoute path="user/:username" element={<UserProfilePage />} />
+        <PrivateRoute path="/search" element={<SearchUser />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>

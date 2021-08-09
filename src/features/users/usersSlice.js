@@ -5,7 +5,6 @@ import {
 } from "../../services";
 import {
   followUserService,
-  getAllUsersService,
   unfollowUserService,
 } from "../../services/usersService/Users.services";
 
@@ -17,11 +16,6 @@ const initialState = {
   posts: [],
   error: null,
 };
-
-export const getAllUsers = createAsyncThunk("users/getAllUsers", async () => {
-  const response = await getAllUsersService();
-  return response.data.users;
-});
 
 export const getPostsByUsername = createAsyncThunk(
   "users/getPostsByUsername",
@@ -68,18 +62,6 @@ const usersSlice = createSlice({
     },
   },
   extraReducers: {
-    //****************getAllUsers**************************
-    [getAllUsers.pending]: (state) => {
-      state.allUsersStatus = "loading";
-    },
-    [getAllUsers.fulfilled]: (state, action) => {
-      state.allUsers = action.payload;
-      state.allUsersStatus = "fulfilled";
-    },
-    [getAllUsers.rejected]: (state, action) => {
-      state.error = action.error.message;
-      state.allUsersStatus = "error";
-    },
     //****************getPostsByUsername ******************
     [getPostsByUsername.pending]: (state) => {
       state.userStatus = "loading";

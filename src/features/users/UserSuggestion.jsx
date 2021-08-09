@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 // import { followButtonClicked, getUserByUsername } from "../../users/usersSlice";
 
 export const UserSuggestion = () => {
-  const { allUsers, userStatus } = useSelector((state) => state.users);
+  const { allUsers, searchStatus } = useSelector((state) => state.search);
   const { user: loggedInUser } = useSelector((state) => state.auth);
   // const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,12 +23,12 @@ export const UserSuggestion = () => {
     <>
       <div>
         <h3 className="text-lg font-semibold">Suggested Users:</h3>
-        {/* {userStatus === "loading" && (
+        {/* {searchStatus === "loading" && (
           <h2 className="text-center text-2xl font-semibold mt-20">
             Loading.....
           </h2>
         )} */}
-        {userStatus === "fulfilled" && (
+        {searchStatus === "fulfilled" && (
           <div className="flex overflow-x-auto pb-4 pt-2 bg-gray-50">
             {suggestedUsers?.map((user) => {
               return (
