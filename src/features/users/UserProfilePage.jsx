@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "react-avatar";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
@@ -12,6 +12,7 @@ import {
   resetUser,
   unfollowButtonClicked,
 } from "./usersSlice";
+import { Modal } from "./components/Modal";
 
 export const UserProfilePage = () => {
   const { username } = useParams();
@@ -20,9 +21,9 @@ export const UserProfilePage = () => {
   const isFollowed = user?.followers.find(
     (user) => user._id === loggedInUser._id
   );
-  console.log(userStatus);
-  console.log(isFollowed);
   const dispatch = useDispatch();
+  const [showFollowersModal, setShowFollowersModal] = useState(false);
+  const [showFollowingModal, setShowFollowingModal] = useState(false);
 
   const followUnfollowHandler = () => {
     if (isFollowed) {
@@ -36,10 +37,12 @@ export const UserProfilePage = () => {
     if (userStatus === "idle") {
       dispatch(getUserByUsername(username));
       dispatch(getPostsByUsername(username));
+      // dispatch(getLoggedInUser());
     }
+    setShowFollowersModal(false);
+    setShowFollowingModal(false);
 
     return () => {
-      console.log("reset User");
       userStatus === "fulfilled" && dispatch(resetUser());
     };
   }, [userStatus, dispatch, username]);
@@ -68,13 +71,35 @@ export const UserProfilePage = () => {
                 <div className="flex flex-col items-center">
                   <span>{posts?.length}</span> <span>Posts</span>
                 </div>
-                <div className="flex flex-col items-center">
+                <div
+                  className="flex flex-col items-center cursor-pointer"
+                  onClick={() => setShowFollowersModal((state) => !state)}
+                >
                   <span>{user?.followers.length}</span> <span>Followers</span>
                 </div>
-                <div className="flex flex-col items-center">
+                <div
+                  className="flex flex-col items-center cursor-pointer"
+                  onClick={() => setShowFollowingModal((state) => !state)}
+                >
                   <span>{user?.following.length}</span> <span>Following</span>
                 </div>
               </div>
+
+              {showFollowersModal && (
+                <Modal
+                  modalContent={user?.followers}
+                  modalType="Followers"
+                  setShowModal={setShowFollowersModal}
+                />
+              )}
+              {showFollowingModal && (
+                <Modal
+                  modalContent={user?.following}
+                  modalType="Following"
+                  setShowModal={setShowFollowingModal}
+                />
+              )}
+
               {loggedInUser._id === user?._id ? (
                 <button
                   className="bg-blue-700 text-white px-4 py-2 rounded-md"

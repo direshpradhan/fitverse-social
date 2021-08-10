@@ -92,7 +92,7 @@ const usersSlice = createSlice({
     },
     [followButtonClicked.fulfilled]: (state, action) => {
       const { user } = action.payload;
-      state.user.followers.push(user);
+      state.user?.followers.push(user);
       state.userStatus = "fulfilled";
     },
     [followButtonClicked.error]: (state, action) => {

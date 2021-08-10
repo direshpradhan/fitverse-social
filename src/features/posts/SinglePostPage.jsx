@@ -15,7 +15,7 @@ export const SinglePostPage = () => {
   const { postId } = useParams();
   const { user, token } = useSelector((state) => state.auth);
   const { posts, postStatus } = useSelector((state) => state.posts);
-  const { allUsers } = useSelector((state) => state.users);
+  const { allUsers } = useSelector((state) => state.search);
   const post = posts.find((post) => post._id === postId);
   const [comment, setComment] = useState("");
   const dispatch = useDispatch();
@@ -37,7 +37,7 @@ export const SinglePostPage = () => {
         </h2>
       )}
       {postStatus === "fulfilled" && (
-        <article className="border border-gray-500 rounded-md mx-auto my-2 px-4 pb-2 w-11/12 md:w-2/5 lg:w-2/5">
+        <article className="border border-gray-500 rounded-md mx-auto my-2 px-4 pb-2 w-11/12 md:w-3/5 lg:w-2/3 md:ml-72 lg:ml-80 mb-20 md:my-12">
           <div className="flex gap-2 pt-2">
             <Avatar
               name={`${post.user.firstName} ${post?.user.lastName}`}

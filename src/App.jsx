@@ -25,6 +25,7 @@ function App() {
   useEffect(() => {
     console.log("loggedIn user.....");
     if (token) {
+      console.log(authStatus);
       authStatus === "idle" && dispatch(getLoggedInUser());
       searchStatus === "idle" && dispatch(getAllUsers());
     }
