@@ -9,7 +9,7 @@ export const BottomNav = () => {
   return (
     <>
       <div>
-        <div className="flex w-screen justify-around items-center h-16 bg-gray-200 fixed bottom-0 md:hidden">
+        <div className="flex w-screen justify-around items-center h-16 bg-gray-50 border-t-2 border-gray-400 border-opacity-50 rounded-3xl fixed bottom-0 md:hidden">
           <NavLink
             end
             to="/"

@@ -7,9 +7,9 @@ export const Navbar = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex justify-between sticky top-0 left-0 right-0 z-10 bg-white w-full h-16 items-center shadow-md md:hidden">
+    <div className="flex justify-between sticky top-0 left-0 right-0 z-10 bg-white w-full h-16 items-center shadow-md md:hidden ">
       <h1
-        className="text-2xl font-bold pl-6 cursor-pointer"
+        className="text-3xl font-bold pl-4 cursor-pointer"
         onClick={() => navigate("/")}
       >
         Social

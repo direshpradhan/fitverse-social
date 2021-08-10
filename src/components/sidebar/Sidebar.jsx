@@ -13,7 +13,7 @@ export const Sidebar = () => {
     navigate(`/user/${username}`);
   };
   return (
-    <div className="fixed hidden left-0 top-0 h-screen md:w-1/4 lg:w-1/5 flex-col mx-4 z-10 bg-gray-50 md:block">
+    <div className="fixed hidden left-0 top-0 h-screen md:w-1/4 lg:w-1/5 flex-col  z-10 bg-gray-50 md:block border-r-2 border-gray-300 rounded-3xl">
       <h1
         className="text-3xl mt-4 font-bold px-6 cursor-pointer"
         onClick={() => navigate("/")}

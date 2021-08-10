@@ -50,12 +50,12 @@ export const UserProfilePage = () => {
   return (
     <>
       {userStatus === "loading" && (
-        <h2 className="text-center text-2xl h-3/5 mt-60 font-semibold">
+        <h2 className="text-center text-2xl pt-60 font-semibold h-screen">
           Loading.....
         </h2>
       )}
       {userStatus === "fulfilled" && (
-        <div className="w-11/12 md:w-1/2 mx-auto md:ml-80 lg:ml-96 mt-4 mb-20 md:mt-12">
+        <div className="w-11/12 md:w-1/2 mx-auto md:ml-80 lg:ml-96 pt-4 mb-20 md:pt-12">
           <div className="flex justify-between">
             <div>
               <Avatar

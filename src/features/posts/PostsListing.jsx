@@ -19,10 +19,10 @@ export const PostsListing = () => {
 
   return (
     <>
-      <div className="w-11/12 md:w-3/5 lg:w-2/3 mx-auto md:ml-72 lg:ml-80 mb-20 md:my-12">
+      <div className="w-11/12 md:w-3/5 lg:w-2/3 mx-auto md:ml-72 lg:ml-80 pb-20 md:pb-8 md:pt-12">
         <AddNewPost />
         {postStatus === "loading" && posts.length === 0 && (
-          <h2 className="text-center text-2xl font-semibold mt-20">
+          <h2 className="text-center text-2xl font-semibold mt-20 h-screen">
             Loading Posts.....
           </h2>
         )}

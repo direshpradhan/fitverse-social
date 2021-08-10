@@ -36,8 +36,8 @@ export const SearchUser = () => {
   return (
     <>
       {searchStatus === "fulfilled" && (
-        <div className="w-11/12 md:w-3/5 lg:w-2/3 mx-auto md:ml-72 lg:ml-80 mt-4 md:mt-12 relative">
-          <span className="material-icons-outlined absolute right-2 top-1 text-3xl text-gray-500">
+        <div className="w-11/12 md:w-3/5 lg:w-2/3 mx-auto md:ml-72 lg:ml-80 pt-4 h-screen md:pt-11 relative">
+          <span className="material-icons-outlined absolute right-2 top-5 md:top-12 text-3xl text-gray-500">
             search
           </span>
           <input
@@ -50,7 +50,7 @@ export const SearchUser = () => {
             className="w-full py-2 pl-4 pr-9 border-2 focus:border-blue-400 focus:outline-none rounded-md"
           />
           {usersModal && (
-            <div className="border-2 rounded-md mt-2 px-2 py-1 max-h-80 overflow-y-auto">
+            <div className="border-2 rounded-md mt-2 px-2 py-1 max-h-80 overflow-y-auto bg-white">
               {searchedUser.length !== 0 ? (
                 searchedUser.map((user) => {
                   return (

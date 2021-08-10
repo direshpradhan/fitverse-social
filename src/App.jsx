@@ -32,7 +32,7 @@ function App() {
   }, [token, dispatch, authStatus, searchStatus]);
 
   return (
-    <div className="">
+    <div className="bg-gray-50">
       {token && <Sidebar />}
       {token && <Navbar />}
       <Routes>
