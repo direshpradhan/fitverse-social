@@ -1,5 +1,3 @@
-import Avatar from "react-avatar";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 // import { SearchUser } from "../../features/search/SearchUser";
 // import { logoutUser } from "../../features/authentication/authSlice";
@@ -7,13 +5,9 @@ import { useNavigate } from "react-router";
 export const Navbar = () => {
   // const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
-  // const [showSearchModal, setShowSearchModal] = useState(false);
-  // useEffect(() => {
-  //   setShowSearchModal(false);
-  // }, [navigate]);
+
   return (
-    <div className="flex justify-between w-full h-16 items-center shadow-md">
+    <div className="flex justify-between sticky top-0 left-0 right-0 z-10 bg-white w-full h-16 items-center shadow-md md:hidden">
       <h1
         className="text-2xl font-bold pl-6 cursor-pointer"
         onClick={() => navigate("/")}
@@ -26,20 +20,14 @@ export const Navbar = () => {
       >
         {token ? "Logout" : "Login"}
       </button> */}
-      <div className="flex items-center">
-        {/* <span
-          className="material-icons-outlined"
-          onClick={() => setShowSearchModal(() => true)}
-        >
-          search
-        </span> */}
+      {/* <div className="flex items-center">
         <Avatar
           name={`${user.firstName} ${user.lastName}`}
           size="40"
           className="rounded-full font-semibold mr-4 cursor-pointer ml-1"
           onClick={() => navigate(`/user/${user.username}`)}
         />
-      </div>
+      </div> */}
       {/* {showSearchModal && (
         <div
           className="fixed inset-0 mx-auto z-10"

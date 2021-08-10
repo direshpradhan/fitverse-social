@@ -36,7 +36,7 @@ export const SearchUser = () => {
   return (
     <>
       {searchStatus === "fulfilled" && (
-        <div className="w-11/12 md:w-3/5 lg:w-2/3 mx-auto md:ml-72 lg:ml-80 mt-12 relative">
+        <div className="w-11/12 md:w-3/5 lg:w-2/3 mx-auto md:ml-72 lg:ml-80 mt-4 md:mt-12 relative">
           <span className="material-icons-outlined absolute right-2 top-1 text-3xl text-gray-500">
             search
           </span>
