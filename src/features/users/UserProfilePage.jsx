@@ -25,6 +25,10 @@ export const UserProfilePage = () => {
   const [showFollowersModal, setShowFollowersModal] = useState(false);
   const [showFollowingModal, setShowFollowingModal] = useState(false);
 
+  const sortedPosts = [...posts].sort((post1, post2) =>
+    post2.createdAt.localeCompare(post1.createdAt)
+  );
+
   const followUnfollowHandler = () => {
     if (isFollowed) {
       dispatch(unfollowButtonClicked(user?._id));
@@ -129,7 +133,7 @@ export const UserProfilePage = () => {
             <div className="bg-gray-200 h-px my-6"></div>
           )}
           <div>
-            {posts.map((post) => (
+            {sortedPosts.map((post) => (
               <PostCard post={post} />
             ))}
           </div>

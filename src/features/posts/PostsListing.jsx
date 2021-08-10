@@ -17,6 +17,10 @@ export const PostsListing = () => {
     }
   }, [token, dispatch, postStatus]);
 
+  const sortedPosts = [...posts].sort((post1, post2) =>
+    post2.createdAt.localeCompare(post1.createdAt)
+  );
+
   return (
     <>
       <div className="w-11/12 md:w-3/5 lg:w-2/3 mx-auto md:ml-72 lg:ml-80 pb-20 md:pb-8 md:pt-12">
@@ -29,7 +33,7 @@ export const PostsListing = () => {
         {(postStatus === "fulfilled" || postStatus === "loading") && (
           <section className=" mt-12 mx-auto">
             {/* <h2 className="font-bold text-3xl my-4 mb-6">Posts</h2> */}
-            {posts?.map((post) => {
+            {sortedPosts?.map((post) => {
               return <PostCard post={post} />;
             })}
           </section>
