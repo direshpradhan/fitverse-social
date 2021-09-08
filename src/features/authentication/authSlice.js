@@ -5,17 +5,25 @@ import { getLoggedInUserService } from "../../services/usersService/Users.servic
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
-  async ({ email, username, password }) => {
-    const loginResponse = await loginService(email, username, password);
-    return loginResponse.data;
+  async ({ email, username, password }, { rejectWithValue }) => {
+    try {
+      const loginResponse = await loginService(email, username, password);
+      return loginResponse.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
   }
 );
 
 export const signupUser = createAsyncThunk(
   "auth/signupUser",
-  async (userDetails) => {
-    const signupResponse = await signupService(userDetails);
-    return signupResponse.data;
+  async (userDetails, { rejectWithValue }) => {
+    try {
+      const signupResponse = await signupService(userDetails);
+      return signupResponse.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
   }
 );
 
@@ -55,6 +63,7 @@ export const authSlice = createSlice({
       state.authStatus = "loading";
     },
     [loginUser.fulfilled]: (state, action) => {
+      console.log("entered fulfilled");
       state.authStatus = "fulfilled";
       state.token = action.payload.token;
       state.user = action.payload.user;
@@ -64,7 +73,7 @@ export const authSlice = createSlice({
       );
     },
     [loginUser.rejected]: (state, action) => {
-      state.error = action.error.message;
+      state.error = action.payload.message;
       state.authStatus = "error";
     },
     [signupUser.pending]: (state) => {
@@ -80,7 +89,7 @@ export const authSlice = createSlice({
       );
     },
     [signupUser.rejected]: (state, action) => {
-      state.error = action.error.message;
+      state.error = action.payload.message;
       state.authStatus = "error";
     },
     [getLoggedInUser.pending]: (state) => {

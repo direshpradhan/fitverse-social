@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { Alert } from "../../components/alert/Alert";
 import { signupUser } from "./authSlice";
 
 export const Signup = () => {
@@ -11,7 +12,7 @@ export const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { token, authStatus } = useSelector((state) => state.auth);
+  const { token, authStatus, error } = useSelector((state) => state.auth);
 
   const signupHandler = (event) => {
     event.preventDefault();
@@ -27,6 +28,7 @@ export const Signup = () => {
       <h2 className="font-bold text-3xl text-center mb-4">
         Sign up for Fitverse Social
       </h2>
+      {authStatus === "error" && <Alert message={error} />}
       <form
         onSubmit={(event) => signupHandler(event)}
         className="flex flex-col"
@@ -35,12 +37,14 @@ export const Signup = () => {
           <input
             type="text"
             placeholder="First Name"
+            required
             onChange={(event) => setFirstName(event.target.value)}
             className="mt-4 py-3 pl-4 w-1/2 mr-1 border rounded-md"
           />
           <input
             type="text"
             placeholder="Last Name"
+            required
             onChange={(event) => setLastName(event.target.value)}
             className="mt-4 py-3 pl-4 w-1/2 ml-1 border rounded-md"
           />
@@ -48,18 +52,21 @@ export const Signup = () => {
         <input
           type="text"
           placeholder="Username"
+          required
           onChange={(event) => setUsername(event.target.value)}
           className="mt-4 py-3 px-4 border rounded-md"
         />
         <input
           type="email"
           placeholder="Email"
+          required
           onChange={(event) => setEmail(event.target.value)}
           className="mt-4 py-3 px-4 border rounded-md"
         />
         <input
           type="password"
           placeholder="Password"
+          required
           onChange={(event) => setPassword(event.target.value)}
           className="mt-4 py-3 px-4 border rounded-md"
         />

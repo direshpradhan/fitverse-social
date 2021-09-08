@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { loginUser } from "./authSlice";
+import { Alert } from "../../components/alert/Alert";
 
 export const Login = () => {
-  const { token, authStatus } = useSelector((state) => state.auth);
+  const { token, authStatus, error } = useSelector((state) => state.auth);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -27,11 +28,13 @@ export const Login = () => {
       <h2 className="font-bold text-3xl text-center mb-4">
         Login to Fitverse Social
       </h2>
+      {authStatus === "error" && <Alert message={error} />}
       <form className="flex flex-col" onSubmit={(event) => loginHandler(event)}>
         <input
           type="text"
           placeholder="Email/Username"
           value={email ? email : username}
+          required
           onChange={(event) =>
             event.target.value.includes("@")
               ? setEmail(event.target.value)
@@ -44,6 +47,7 @@ export const Login = () => {
           placeholder="Password"
           name="password"
           value={password}
+          required
           onChange={(event) => setPassword(event.target.value)}
           className="mt-4 py-3 px-4 border rounded-md "
         />
