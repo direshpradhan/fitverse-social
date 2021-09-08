@@ -9,11 +9,27 @@ export const TimeStamp = ({ timeData }) => {
 
     if (timePeriod === "less than a minute") {
       timeStamp = "<1m";
-    } else if (timePeriod.indexOf(" ") > 1) {
+    } else if (timePeriod.indexOf(" ") > 2) {
       timeStamp = timePeriod.slice(timePeriod.indexOf(" ") + 1);
-      timeStamp =
-        timeStamp.slice(0, timeStamp.indexOf(" ")) +
-        timeStamp.slice(timeStamp.indexOf(" ") + 1, timeStamp.indexOf(" ") + 2);
+      if (
+        timeStamp.split(" ")[1] === "hours" ||
+        timeStamp.split(" ")[1] === "hour"
+      ) {
+        console.log(timeStamp);
+        timeStamp =
+          timeStamp.slice(0, timeStamp.indexOf(" ")) +
+          timeStamp.slice(
+            timeStamp.indexOf(" ") + 1,
+            timeStamp.indexOf(" ") + 2
+          );
+      } else {
+        timeStamp =
+          timeStamp.slice(0, timeStamp.indexOf(" ")) +
+          timeStamp.slice(
+            timeStamp.indexOf(" ") + 1,
+            timeStamp.indexOf(" ") + 3
+          );
+      }
     } else {
       timeStamp =
         timePeriod.slice(0, timePeriod.indexOf(" ")) +
