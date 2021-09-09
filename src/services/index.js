@@ -1,5 +1,6 @@
 export { loginService } from "./loginService/Login.services";
 export {
+  getPostsForLoggedInUserService,
   getAllPostsService,
   addNewPostService,
   deletePostService,

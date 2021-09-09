@@ -1,5 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { toggleLikeUnlikePost } from "../postsSlice";
+import {
+  resetloggedInUserPostsStatus,
+  toggleLikeUnlikePost,
+} from "../postsSlice";
 
 export function LikeComponent({ post }) {
   const dispatch = useDispatch();
@@ -7,7 +10,10 @@ export function LikeComponent({ post }) {
   const isLikedByUser = post?.likes?.find((id) => id === user._id);
   return !isLikedByUser ? (
     <button
-      onClick={() => dispatch(toggleLikeUnlikePost(post?._id))}
+      onClick={() => {
+        dispatch(toggleLikeUnlikePost(post?._id));
+        dispatch(resetloggedInUserPostsStatus());
+      }}
       className="flex items-center py-2"
     >
       <span class="material-icons-outlined mr-1">favorite_border</span>

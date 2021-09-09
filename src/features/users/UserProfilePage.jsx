@@ -7,16 +7,18 @@ import { logoutUser } from "../authentication/authSlice";
 import { UserSuggestion } from "./UserSuggestion";
 import {
   followButtonClicked,
-  getPostsByUsername,
+  // getPostsByUsername,
   getUserByUsername,
   resetUser,
   unfollowButtonClicked,
 } from "./usersSlice";
 import { Modal } from "./components/Modal";
+import { getAllPosts } from "../posts/postsSlice";
 
 export const UserProfilePage = () => {
   const { username } = useParams();
   const { user, posts, userStatus } = useSelector((state) => state.users);
+  const { allPosts, allPostsStatus } = useSelector((state) => state.posts);
   const loggedInUser = useSelector((state) => state.auth.user);
   const isFollowed = user?.followers.find(
     (user) => user._id === loggedInUser._id
@@ -25,7 +27,11 @@ export const UserProfilePage = () => {
   const [showFollowersModal, setShowFollowersModal] = useState(false);
   const [showFollowingModal, setShowFollowingModal] = useState(false);
 
-  const sortedPosts = [...posts].sort((post1, post2) =>
+  const postsByUsername = allPosts.filter(
+    (post) => post.user.username === username
+  );
+  // console.log(allPosts);
+  const sortedPosts = [...postsByUsername].sort((post1, post2) =>
     post2.createdAt.localeCompare(post1.createdAt)
   );
 
@@ -40,7 +46,8 @@ export const UserProfilePage = () => {
   useEffect(() => {
     if (userStatus === "idle") {
       dispatch(getUserByUsername(username));
-      dispatch(getPostsByUsername(username));
+      allPostsStatus === "idle" && dispatch(getAllPosts());
+      // dispatch(getPostsByUsername(username));
       // dispatch(getLoggedInUser());
     }
     setShowFollowersModal(false);
@@ -49,7 +56,7 @@ export const UserProfilePage = () => {
     return () => {
       userStatus === "fulfilled" && dispatch(resetUser());
     };
-  }, [userStatus, dispatch, username]);
+  }, [userStatus, dispatch, username, allPostsStatus]);
 
   return (
     <>

@@ -96,7 +96,7 @@ export const authSlice = createSlice({
       state.authStatus = "loading";
     },
     [getLoggedInUser.fulfilled]: (state, action) => {
-      console.log("getLoggedInUser..............");
+      // console.log("getLoggedInUser..............");
       state.authStatus = "fulfilled";
       state.user = action.payload;
     },

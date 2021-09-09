@@ -9,34 +9,36 @@ import {
   addCommentToPost,
   deleteCommentFromPost,
   getAllPosts,
+  resetloggedInUserPostsStatus,
 } from "./postsSlice";
 
 export const SinglePostPage = () => {
   const { postId } = useParams();
   const { user, token } = useSelector((state) => state.auth);
-  const { posts, postStatus } = useSelector((state) => state.posts);
+  const { allPosts, allPostsStatus } = useSelector((state) => state.posts);
   const { allUsers } = useSelector((state) => state.search);
-  const post = posts.find((post) => post._id === postId);
+  const post = allPosts.find((post) => post._id === postId);
   const [comment, setComment] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(posts);
+  console.log(allPosts);
+  console.log(post);
 
   useEffect(() => {
     console.log("All posts....");
-    if (postStatus === "idle" && token) {
+    if (allPostsStatus === "idle" && token) {
       dispatch(getAllPosts());
     }
-  }, [token, dispatch, postStatus]);
+  }, [token, dispatch, allPostsStatus]);
 
   return (
     <>
-      {postStatus === "loading" && (
+      {allPostsStatus === "loading" && (
         <h2 className="text-center text-2xl font-semibold pt-20 h-screen">
           Loading.....
         </h2>
       )}
-      {postStatus === "fulfilled" && (
+      {allPostsStatus === "fulfilled" && (
         <div className="pt-8 pb-20 ">
           <article className="border border-gray-500 rounded-md mx-auto my-2 px-4 w-11/12 md:w-3/5 lg:w-2/3 md:ml-72 lg:ml-80 pb-2 bg-white">
             <div className="flex gap-2 pt-2">
@@ -93,14 +95,15 @@ export const SinglePostPage = () => {
                     {comment?.user === user._id && (
                       <span
                         class="material-icons-outlined absolute right-2 top-1 cursor-pointer"
-                        onClick={() =>
+                        onClick={() => {
                           dispatch(
                             deleteCommentFromPost({
                               postId: post?._id,
                               commentId: comment?._id,
                             })
-                          )
-                        }
+                          );
+                          dispatch(resetloggedInUserPostsStatus());
+                        }}
                       >
                         delete
                       </span>
@@ -121,8 +124,8 @@ export const SinglePostPage = () => {
               ></textarea>
               <button
                 onClick={() => {
-                  console.log("clicked");
                   dispatch(addCommentToPost({ postId: post?._id, comment }));
+                  dispatch(resetloggedInUserPostsStatus());
                   setComment("");
                 }}
                 className="bg-blue-700 px-4 py-1 rounded text-white self-end"

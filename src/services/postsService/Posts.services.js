@@ -1,8 +1,12 @@
 import axios from "axios";
 import { API_URL } from "../../constants";
 
-export const getAllPostsService = async () => {
+export const getPostsForLoggedInUserService = async () => {
   return axios.get(`${API_URL}/post`);
+};
+
+export const getAllPostsService = async () => {
+  return axios.get(`${API_URL}/post/allPosts`);
 };
 
 export const addNewPostService = async (content) => {

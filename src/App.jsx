@@ -23,9 +23,9 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("loggedIn user.....");
+    // console.log("loggedIn user.....");
     if (token) {
-      console.log(authStatus);
+      // console.log(authStatus);
       authStatus === "idle" && dispatch(getLoggedInUser());
       searchStatus === "idle" && dispatch(getAllUsers());
     }
