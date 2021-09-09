@@ -77,6 +77,9 @@ export const SinglePostPage = () => {
             </div>
 
             <div className="mt-2 border-t border-gray-300 max-h-80 overflow-y-auto">
+              {/* {post.comments.length !== 0 && (
+                <h2 className="text-xl font-semibold">Comments:</h2>
+              )} */}
               {post?.comments?.map((comment) => {
                 console.log(comment);
                 console.log(allUsers);
@@ -84,30 +87,39 @@ export const SinglePostPage = () => {
                   (user) => user._id === comment.user
                 );
                 return (
-                  <div className="my-2 relative">
-                    <h3 className="font-semibold text-lg">
-                      {`${commentUser?.firstName} ${commentUser?.lastName}`}
-                      <span className="text-gray-500 text-base font-medium">
-                        @{`${commentUser?.username}`}
-                      </span>
-                    </h3>
-                    <p className="break-words w-10/12">{comment?.comment}</p>
-                    {comment?.user === user._id && (
-                      <span
-                        class="material-icons-outlined absolute right-2 top-1 cursor-pointer"
-                        onClick={() => {
-                          dispatch(
-                            deleteCommentFromPost({
-                              postId: post?._id,
-                              commentId: comment?._id,
-                            })
-                          );
-                          dispatch(resetloggedInUserPostsStatus());
-                        }}
-                      >
-                        delete
-                      </span>
-                    )}
+                  <div className="flex gap-2 relative my-4">
+                    <Avatar
+                      name={`${commentUser?.firstName} ${commentUser?.lastName}`}
+                      size="50"
+                      className="rounded-full cursor-pointer"
+                      onClick={() => navigate(`/user/${commentUser?.username}`)}
+                    />
+                    <div className="flex-grow">
+                      <h3 className="font-semibold text-lg w-10/12">
+                        {`${commentUser?.firstName} ${commentUser?.lastName}`}
+                        <span className="text-gray-500 text-base font-medium">
+                          @{`${commentUser?.username}`}
+                        </span>
+                      </h3>
+                      <p className="break-words w-10/12">{comment?.comment}</p>
+
+                      {comment?.user === user._id && (
+                        <span
+                          class="material-icons-outlined absolute right-2 top-1 cursor-pointer"
+                          onClick={() => {
+                            dispatch(
+                              deleteCommentFromPost({
+                                postId: post?._id,
+                                commentId: comment?._id,
+                              })
+                            );
+                            dispatch(resetloggedInUserPostsStatus());
+                          }}
+                        >
+                          delete
+                        </span>
+                      )}
+                    </div>
                   </div>
                 );
               })}

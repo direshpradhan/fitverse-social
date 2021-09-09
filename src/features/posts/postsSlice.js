@@ -180,16 +180,23 @@ const postsSlice = createSlice({
     [addCommentToPost.fulfilled]: (state, action) => {
       state.loggedInUserPostsStatus = "fulfilled";
       const { comment, userId, postId, commentId } = action.payload;
-      const postToBeUpdated = state.loggedInUserPosts.find(
+      const loggedInUserPostToBeUpdated = state.loggedInUserPosts.find(
         (post) => post._id === postId
       );
-      if (postToBeUpdated) {
-        postToBeUpdated.comments.unshift({
-          _id: commentId,
-          comment,
-          user: userId,
-        });
+      const postToBeUpdated = state.allPosts.find(
+        (post) => post._id === postId
+      );
+      function addCommentToPost(post) {
+        if (post) {
+          post.comments.unshift({
+            _id: commentId,
+            comment,
+            user: userId,
+          });
+        }
       }
+      addCommentToPost(loggedInUserPostToBeUpdated);
+      addCommentToPost(postToBeUpdated);
     },
     [addCommentToPost.rejected]: (state, action) => {
       state.loggedInUserPostsStatus = "error";
@@ -203,15 +210,24 @@ const postsSlice = createSlice({
     [deleteCommentFromPost.fulfilled]: (state, action) => {
       state.loggedInUserPostsStatus = "fulfilled";
       const { postId, commentId } = action.payload;
-      const postToBeUpdated = state.loggedInUserPosts.find(
+      const loggedInPostToBeUpdated = state.loggedInUserPosts.find(
         (post) => post._id === postId
       );
-      const commentToBeDeletedIndex = postToBeUpdated.comments.findIndex(
-        (comment) => comment._id === commentId
+      const postToBeUpdated = state.allPosts.find(
+        (post) => post._id === postId
       );
-      if (commentToBeDeletedIndex !== -1) {
-        postToBeUpdated.comments.splice(commentToBeDeletedIndex, 1);
+      function deleteCommentFromPost(post) {
+        if (post) {
+          const commentToBeDeletedIndex = post.comments.findIndex(
+            (comment) => comment._id === commentId
+          );
+          if (commentToBeDeletedIndex !== -1) {
+            post.comments.splice(commentToBeDeletedIndex, 1);
+          }
+        }
       }
+      deleteCommentFromPost(loggedInPostToBeUpdated);
+      deleteCommentFromPost(postToBeUpdated);
     },
   },
 });
