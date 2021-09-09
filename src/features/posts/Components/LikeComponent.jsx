@@ -16,7 +16,7 @@ export function LikeComponent({ post }) {
       }}
       className="flex items-center py-2"
     >
-      <span class="material-icons-outlined mr-1">favorite_border</span>
+      <span className="material-icons-outlined mr-1">favorite_border</span>
       {post?.likes.length} Likes
     </button>
   ) : (
@@ -24,7 +24,9 @@ export function LikeComponent({ post }) {
       onClick={() => dispatch(toggleLikeUnlikePost(post._id))}
       className="flex items-center py-2"
     >
-      <span class="material-icons-outlined mr-1 text-red-600">favorite</span>
+      <span className="material-icons-outlined mr-1 text-red-600">
+        favorite
+      </span>
       {post?.likes.length} Likes
     </button>
   );

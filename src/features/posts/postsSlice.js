@@ -80,6 +80,7 @@ const postsSlice = createSlice({
   initialState,
   reducers: {
     resetloggedInUserPostsStatus: (state) => {
+      console.log("resetting..");
       state.loggedInUserPostsStatus = "idle";
     },
   },
@@ -90,7 +91,7 @@ const postsSlice = createSlice({
     },
     [getAllPosts.fulfilled]: (state, action) => {
       state.allPostsStatus = "fulfilled";
-      state.allPosts = state.allPosts.concat(action.payload);
+      state.allPosts = action.payload;
     },
     [getAllPosts.rejected]: (state, action) => {
       state.allPostsStatus = "error";
@@ -103,7 +104,7 @@ const postsSlice = createSlice({
     },
     [getPostsForLoggedInUser.fulfilled]: (state, action) => {
       state.loggedInUserPostsStatus = "fulfilled";
-      state.loggedInUserPosts = state.loggedInUserPosts.concat(action.payload);
+      state.loggedInUserPosts = action.payload;
     },
     [getPostsForLoggedInUser.rejected]: (state, action) => {
       state.loggedInUserPostsStatus = "error";

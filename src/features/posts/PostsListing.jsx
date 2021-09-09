@@ -1,10 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { useNavigate } from "react-router";
 import { PostCard } from "../../components/postCard/PostCard";
 import { AddNewPost } from "./Components/AddNewPost";
 import { getPostsForLoggedInUser } from "./postsSlice";
-// import { LikeComponent } from "./Components/LikeComponent";
 
 export const PostsListing = () => {
   const { loggedInUserPosts, loggedInUserPostsStatus } = useSelector(
@@ -14,10 +12,8 @@ export const PostsListing = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (loggedInUserPostsStatus === "idle" && token) {
-      dispatch(getPostsForLoggedInUser());
-    }
-  }, [token, dispatch, loggedInUserPostsStatus]);
+    token && dispatch(getPostsForLoggedInUser());
+  }, [token, dispatch]);
 
   const sortedPosts = [...loggedInUserPosts].sort((post1, post2) =>
     post2.createdAt.localeCompare(post1.createdAt)
@@ -38,7 +34,7 @@ export const PostsListing = () => {
           <section className=" mt-12 mx-auto">
             {/* <h2 className="font-bold text-3xl my-4 mb-6">Posts</h2> */}
             {sortedPosts?.map((post) => {
-              return <PostCard post={post} />;
+              return <PostCard key={post._id} post={post} />;
             })}
           </section>
         )}

@@ -15,7 +15,6 @@ export const TimeStamp = ({ timeData }) => {
         timeStamp.split(" ")[1] === "hours" ||
         timeStamp.split(" ")[1] === "hour"
       ) {
-        console.log(timeStamp);
         timeStamp =
           timeStamp.slice(0, timeStamp.indexOf(" ")) +
           timeStamp.slice(
