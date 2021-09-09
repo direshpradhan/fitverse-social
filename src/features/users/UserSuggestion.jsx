@@ -36,7 +36,7 @@ export const UserSuggestion = () => {
           <div className="flex overflow-x-auto pb-4 pt-2 bg-gray-50">
             {suggestedUsers?.map((user) => {
               return (
-                <div className="flex flex-col items-center mx-2 mt-2 px-4 py-4 w-40 rounded-md bg-white hover:shadow-2xl">
+                <div className="flex flex-col items-center mx-2 mt-2 px-2 py-4 min-w-36 rounded-md bg-white hover:shadow-2xl">
                   <Avatar
                     size="80"
                     name={`${user.firstName} ${user.lastName}`}
