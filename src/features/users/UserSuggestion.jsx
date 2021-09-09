@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Avatar from "react-avatar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { resetAuthStatus } from "../authentication/authSlice";
 
 // import { followButtonClicked, getUserByUsername } from "../../users/usersSlice";
 
 export const UserSuggestion = () => {
-  const { allUsers, searchStatus } = useSelector((state) => state.search);
-  const { user: loggedInUser } = useSelector((state) => state.auth);
-  // const dispatch = useDispatch();
+  const { allUsers } = useSelector((state) => state.search);
+  const { user: loggedInUser, authStatus } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  console.log();
   const suggestedUsers = allUsers.filter(
     (user) =>
       user._id !== loggedInUser._id &&
@@ -18,6 +20,8 @@ export const UserSuggestion = () => {
           userFollowedByLoggedInUser._id === user._id
       )
   );
+
+  useEffect(() => () => dispatch(resetAuthStatus()), [dispatch]);
 
   return (
     <>
@@ -28,7 +32,7 @@ export const UserSuggestion = () => {
             Loading.....
           </h2>
         )} */}
-        {searchStatus === "fulfilled" && (
+        {authStatus === "fulfilled" && (
           <div className="flex overflow-x-auto pb-4 pt-2 bg-gray-50">
             {suggestedUsers?.map((user) => {
               return (
