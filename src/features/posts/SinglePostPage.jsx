@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Avatar from "react-avatar";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
+import { Loader } from "../../components/loader/Loader";
 import { CommentIconComponent } from "./Components/CommentIconComponent";
 import { LikeComponent } from "./Components/LikeComponent";
 import { TimeStamp } from "./Components/TimeStamp";
@@ -34,9 +35,10 @@ export const SinglePostPage = () => {
   return (
     <>
       {allPostsStatus === "loading" && (
-        <h2 className="text-center text-2xl font-semibold pt-20 h-screen">
-          Loading.....
-        </h2>
+        // <h2 className="text-center text-2xl font-semibold pt-20 h-screen">
+        //   Loading.....
+        // </h2>
+        <Loader />
       )}
       {allPostsStatus === "fulfilled" && (
         <div className="pt-8 pb-20 ">

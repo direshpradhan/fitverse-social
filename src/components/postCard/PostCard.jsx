@@ -20,7 +20,7 @@ export const PostCard = ({ post }) => {
           onClick={() => navigate(`/user/${post.user.username}`)}
         />
 
-        <div>
+        <div className="flex-grow">
           <div className="flex">
             <h3
               className="font-semibold text-lg cursor-pointer"

@@ -14,6 +14,7 @@ import {
 } from "./usersSlice";
 import { Modal } from "./components/Modal";
 import { getAllPosts } from "../posts/postsSlice";
+import { Loader } from "../../components/loader/Loader";
 
 export const UserProfilePage = () => {
   const { username } = useParams();
@@ -61,9 +62,10 @@ export const UserProfilePage = () => {
   return (
     <>
       {userStatus === "loading" && (
-        <h2 className="text-center text-2xl pt-60 font-semibold h-screen">
-          Loading.....
-        </h2>
+        // <h2 className="text-center text-2xl pt-60 font-semibold h-screen">
+        //   Loading.....
+        // </h2>
+        <Loader />
       )}
       {userStatus === "fulfilled" && (
         <div className="w-11/12 md:w-1/2 mx-auto md:ml-80 lg:ml-96 pt-4 mb-20 md:pt-12">
