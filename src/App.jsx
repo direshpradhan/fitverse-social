@@ -2,10 +2,12 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router";
 import "./App.css";
+import { store } from "./app/store";
 import { BottomNav } from "./components/bottomNav/BottomNav";
 import { Navbar } from "./components/navbar/Navbar";
 import { Sidebar } from "./components/sidebar/Sidebar";
 import { getLoggedInUser } from "./features/authentication/authSlice";
+import { interceptor } from "./utils/interceptor";
 import { Login } from "./features/authentication/Login";
 import { PrivateRoute } from "./features/authentication/PrivateRoute";
 import { Signup } from "./features/authentication/Signup";
@@ -21,6 +23,8 @@ function App() {
   const { searchStatus } = useSelector((state) => state.search);
   token && setAxiosHeadersForServiceCalls(token);
   const dispatch = useDispatch();
+
+  interceptor(store);
 
   useEffect(() => {
     // console.log("loggedIn user.....");
