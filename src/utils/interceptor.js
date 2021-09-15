@@ -6,7 +6,6 @@ export const interceptor = (store) => {
     (response) => response,
     (error) => {
       if (error?.response?.status === 403) {
-        // logout();
         store.dispatch(logoutUser());
       }
       return Promise.reject(error);
