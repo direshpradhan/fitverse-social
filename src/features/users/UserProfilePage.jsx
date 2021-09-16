@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Avatar from "react-avatar";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { PostCard } from "../../components/postCard/PostCard";
 import { logoutUser } from "../authentication/authSlice";
 import { UserSuggestion } from "./UserSuggestion";
@@ -27,6 +27,7 @@ export const UserProfilePage = () => {
   const dispatch = useDispatch();
   const [showFollowersModal, setShowFollowersModal] = useState(false);
   const [showFollowingModal, setShowFollowingModal] = useState(false);
+  const navigate = useNavigate();
 
   const postsByUsername = allPosts.filter(
     (post) => post.user.username === username
@@ -113,10 +114,13 @@ export const UserProfilePage = () => {
                 />
               )}
 
-              {loggedInUser._id === user?._id ? (
+              {loggedInUser?._id === user?._id ? (
                 <button
                   className="bg-blue-700 text-white px-4 py-2 rounded-md"
-                  onClick={() => dispatch(logoutUser())}
+                  onClick={() => {
+                    dispatch(logoutUser());
+                    navigate("/login");
+                  }}
                 >
                   Logout
                 </button>
@@ -137,8 +141,8 @@ export const UserProfilePage = () => {
             <p className="text-gray-500">@{user?.username}</p>
           </div>
           <div className="bg-gray-200 h-px my-4"></div>
-          {loggedInUser.username === username && <UserSuggestion />}
-          {loggedInUser.username === username && (
+          {loggedInUser?.username === username && <UserSuggestion />}
+          {loggedInUser?.username === username && (
             <div className="bg-gray-200 h-px my-6"></div>
           )}
           <div>

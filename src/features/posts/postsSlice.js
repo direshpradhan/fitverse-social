@@ -144,9 +144,9 @@ const postsSlice = createSlice({
     },
 
     // *************toggleLikeUnlike***************
-    [toggleLikeUnlikePost.pending]: (state) => {
-      state.loggedInUserPostsStatus = "loading";
-    },
+    // [toggleLikeUnlikePost.pending]: (state) => {
+    //   state.loggedInUserPostsStatus = "loading";
+    // },
     [toggleLikeUnlikePost.fulfilled]: (state, action) => {
       state.loggedInUserPostsStatus = "fulfilled";
       const { postId, userId } = action.payload;

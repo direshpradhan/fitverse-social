@@ -1,8 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  resetloggedInUserPostsStatus,
-  toggleLikeUnlikePost,
-} from "../postsSlice";
+import { toggleLikeUnlikePost } from "../postsSlice";
 
 export function LikeComponent({ post }) {
   const dispatch = useDispatch();
@@ -12,7 +9,7 @@ export function LikeComponent({ post }) {
     <button
       onClick={() => {
         dispatch(toggleLikeUnlikePost(post?._id));
-        dispatch(resetloggedInUserPostsStatus());
+        // dispatch(resetloggedInUserPostsStatus());
       }}
       className="flex items-center py-2"
     >

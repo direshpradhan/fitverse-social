@@ -19,6 +19,8 @@ export const PostsListing = () => {
   const sortedPosts = [...loggedInUserPosts].sort((post1, post2) =>
     post2.createdAt.localeCompare(post1.createdAt)
   );
+  console.log(loggedInUserPosts.length);
+  console.log(loggedInUserPostsStatus);
 
   return (
     <>

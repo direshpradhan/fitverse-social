@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Routes } from "react-router";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
-// import { store } from "./app/store";
+import { store } from "./app/store";
 import { BottomNav } from "./components/bottomNav/BottomNav";
 import { Navbar } from "./components/navbar/Navbar";
 import { Sidebar } from "./components/sidebar/Sidebar";
 import { getLoggedInUser } from "./features/authentication/authSlice";
-// import { interceptor } from "./utils/interceptor";
+import { interceptor } from "./utils/interceptor";
 import { Login } from "./features/authentication/Login";
 import { PrivateRoute } from "./features/authentication/PrivateRoute";
 import { Signup } from "./features/authentication/Signup";
@@ -23,8 +23,9 @@ function App() {
   const { searchStatus } = useSelector((state) => state.search);
   token && setAxiosHeadersForServiceCalls(token);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // interceptor(store);
+  interceptor(store);
 
   useEffect(() => {
     // console.log("loggedIn user.....");
@@ -32,13 +33,16 @@ function App() {
       // console.log(authStatus);
       authStatus === "idle" && dispatch(getLoggedInUser());
       searchStatus === "idle" && dispatch(getAllUsers());
+    } else {
+      navigate("/login");
     }
-  }, [token, dispatch, authStatus, searchStatus]);
+  }, [token, dispatch, authStatus, searchStatus, navigate]);
 
   return (
     <div className="bg-gray-50 min-h-screen">
       {token && <Sidebar />}
       {token && <Navbar />}
+
       <Routes>
         <PrivateRoute path="/" element={<PostsListing />} />
         <PrivateRoute path="/posts/:postId" element={<SinglePostPage />} />
