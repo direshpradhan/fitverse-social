@@ -26,11 +26,13 @@ export const SinglePostPage = () => {
   console.log(post);
 
   useEffect(() => {
-    console.log("All posts....");
     if (allPostsStatus === "idle" && token) {
       dispatch(getAllPosts());
     }
-  }, [token, dispatch, allPostsStatus]);
+    if (!token) {
+      navigate("/login");
+    }
+  }, [token, dispatch, allPostsStatus, navigate]);
 
   return (
     <>

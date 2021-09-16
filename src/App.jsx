@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { store } from "./app/store";
 import { BottomNav } from "./components/bottomNav/BottomNav";
@@ -23,20 +23,15 @@ function App() {
   const { searchStatus } = useSelector((state) => state.search);
   token && setAxiosHeadersForServiceCalls(token);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   interceptor(store);
 
   useEffect(() => {
-    // console.log("loggedIn user.....");
     if (token) {
-      // console.log(authStatus);
       authStatus === "idle" && dispatch(getLoggedInUser());
       searchStatus === "idle" && dispatch(getAllUsers());
-    } else {
-      navigate("/login");
     }
-  }, [token, dispatch, authStatus, searchStatus, navigate]);
+  }, [token, dispatch, authStatus, searchStatus]);
 
   return (
     <div className="bg-gray-50 min-h-screen">

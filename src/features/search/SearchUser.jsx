@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 
 export const SearchUser = () => {
   const { allUsers, searchStatus } = useSelector((state) => state.search);
-  const { user: loggedInUser } = useSelector((state) => state.auth);
+  const { user: loggedInUser, token } = useSelector((state) => state.auth);
   const [searchText, setSearchText] = useState("");
   const [usersModal, setUsersModal] = useState(false);
   const navigate = useNavigate();
@@ -32,7 +32,8 @@ export const SearchUser = () => {
 
   useEffect(() => {
     searchText !== "" ? setUsersModal(() => true) : setUsersModal(() => false);
-  }, [searchText]);
+    !token && navigate("/login");
+  }, [searchText, token, navigate]);
   return (
     <>
       {searchStatus === "fulfilled" && (

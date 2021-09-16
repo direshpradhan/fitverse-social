@@ -20,7 +20,7 @@ export const UserProfilePage = () => {
   const { username } = useParams();
   const { user, posts, userStatus } = useSelector((state) => state.users);
   const { allPosts, allPostsStatus } = useSelector((state) => state.posts);
-  const loggedInUser = useSelector((state) => state.auth.user);
+  const { user: loggedInUser, token } = useSelector((state) => state.auth);
   const isFollowed = user?.followers.find(
     (user) => user._id === loggedInUser._id
   );
@@ -55,10 +55,14 @@ export const UserProfilePage = () => {
     setShowFollowersModal(false);
     setShowFollowingModal(false);
 
+    if (!token) {
+      navigate("/login");
+    }
+
     return () => {
       userStatus === "fulfilled" && dispatch(resetUser());
     };
-  }, [userStatus, dispatch, username, allPostsStatus]);
+  }, [userStatus, dispatch, username, allPostsStatus, navigate, token]);
 
   return (
     <>

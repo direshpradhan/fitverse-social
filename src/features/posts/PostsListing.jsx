@@ -4,6 +4,7 @@ import { PostCard } from "../../components/postCard/PostCard";
 import { AddNewPost } from "./Components/AddNewPost";
 import { getPostsForLoggedInUser } from "./postsSlice";
 import { Loader } from "../../components/loader/Loader";
+import { useNavigate } from "react-router";
 
 export const PostsListing = () => {
   const { loggedInUserPosts, loggedInUserPostsStatus } = useSelector(
@@ -11,10 +12,11 @@ export const PostsListing = () => {
   );
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    token && dispatch(getPostsForLoggedInUser());
-  }, [token, dispatch]);
+    token ? dispatch(getPostsForLoggedInUser()) : navigate("/login");
+  }, [token, dispatch, navigate]);
 
   const sortedPosts = [...loggedInUserPosts].sort((post1, post2) =>
     post2.createdAt.localeCompare(post1.createdAt)
